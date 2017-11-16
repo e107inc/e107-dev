@@ -1,0 +1,77 @@
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+a,
+a:visited,
+a:focus,
+a:active {
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main-container {
+  position: relative;
+  width: 320px;
+  height: 190px;
+
+  border: 1px solid #000000;
+}
+
+.main-container .github-link {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.main-container .github-link img {
+  max-width: 125px;
+  max-height: 125px;
+}
+
+.main-container .inner-container {
+  padding: 15px;
+}
+
+.main-container .inner-container h1 {
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 28px;
+}
+
+.main-container .inner-container .created-by {
+  font-size: 10px;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.main-container .inner-container .created-by a {
+  font-weight: bold;
+}
+
+.main-container .inner-container .help-text {
+  max-width: 270px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.main-container .inner-container .site-info {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.main-container .inner-container .site-info span.success {
+  color: #5cb85c;
+}
+
+.main-container .inner-container .site-info span.fail {
+  color: #d9534f;
+}
