@@ -3,13 +3,13 @@ e107 Dev
 
 Browser (Firefox and Chrome) extension containing developer tools for e107 developers...
 
-### Commands
+### Commands for development
 
-Install dependecies:
+Install dependencies:
 > npm install
 
 Run webpack with file watcher:
 > npm run webpack
 
-Run HTTP server:
+Run development server:
 > npm start
