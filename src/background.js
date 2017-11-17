@@ -56,6 +56,7 @@ class ContextMenu {
       'lastFocusedWindow': true
     }, function (tabs) {
       _this.currentUrl = tabs[0].url;
+      // @todo only build menu if current website is using e107.
       _this.buildMenu();
     });
   };
@@ -73,6 +74,7 @@ class ContextMenu {
       "title": "e107 Devel - Debug Mode"
     });
 
+    // @todo get saved mode from localStorage
     let defaultMode = '[debug=-]';
 
     for (let [mode, label] of Object.entries(ContextMenu.menuItems)) {
@@ -113,6 +115,9 @@ class ContextMenu {
   menuItemClick(info, tab, mode) {
     let url = tab.url;
     url = url.split("?");
+    // @todo re-apply other query parameters and fragment if there is.
+
+    // @todo save selected mode to localStorage.
 
     this.browser.tabs.update(tab.id, {
       "url": url[0] + '?' + mode
