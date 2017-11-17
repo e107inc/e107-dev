@@ -33,7 +33,7 @@ function isKeyAString(key) {
   return typeof key === 'string';
 }
 
-export default class Store {
+export default class Storage {
 
   /**
    * From object to string.
@@ -129,7 +129,7 @@ export default class Store {
     }
 
     let store = this[__store];
-    let _val = typeof val === 'object' ? Store.clone(val) : val;
+    let _val = typeof val === 'object' ? Storage.clone(val) : val;
     const parts = key.split('.');
     const lastKey = parts.pop();
 
@@ -197,14 +197,14 @@ export default class Store {
       return defaultValue;
     }
 
-    return typeof store === 'object' ? Store.clone(store) : store;
+    return typeof store === 'object' ? Storage.clone(store) : store;
   }
 
   /**
    * Return all local storage data.
    */
   getAll() {
-    return Store.clone(this[__store]);
+    return Storage.clone(this[__store]);
   }
 
   /**
@@ -263,7 +263,7 @@ export default class Store {
 
   __getAndDeserialize() {
     try {
-      return Store.deserialize(this[__ls].getItem(this[__name]));
+      return Storage.deserialize(this[__ls].getItem(this[__name]));
     }
     catch (e) {
       this[__error] = error('Error when trying to get data from localStorage!');
@@ -274,7 +274,7 @@ export default class Store {
 
   __serializeAndSet() {
     try {
-      this[__ls].setItem(this[__name], Store.serialize(this[__store]));
+      this[__ls].setItem(this[__name], Storage.serialize(this[__store]));
       this[__error] = null;
     }
     catch (e) {

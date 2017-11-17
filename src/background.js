@@ -1,4 +1,4 @@
-import Store from './helpers/Storage';
+import Storage from './helpers/Storage';
 
 /**
  * Class ContextMenu.
@@ -40,7 +40,7 @@ class ContextMenu {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new Store('e107-dev');
+    this.storage = new Storage('e107-dev');
   }
 
   /**
