@@ -144,7 +144,7 @@ class ContextMenu {
       // Remove '&' query separator from the beginning of the query.
       query = query.replace(/^&/, '');
       // Append query to URL.
-      url += '&' + query;
+      url += (query !== "") ? '&' + query : '';
     }
 
     // Process URL fragment.
@@ -152,7 +152,7 @@ class ContextMenu {
       // Remove '#' fragment prefix if it exists.
       let fragment = Utils.arrayReplace(['#'], '', nfo.fragment);
       // Append fragment to URL.
-      url += '#' + fragment;
+      url += (fragment !== "") ? '#' + fragment : '';
     }
 
     this.browser.tabs.update(tab.id, {
