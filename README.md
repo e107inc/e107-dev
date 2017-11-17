@@ -11,5 +11,8 @@ Install dependencies:
 Run webpack with file watcher:
 > npm run webpack
 
+Run webpack to generate minified js files:
+> npm run webpack:prod
+
 Run development server:
 > npm start
