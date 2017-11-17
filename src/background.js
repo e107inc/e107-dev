@@ -78,25 +78,18 @@ class ContextMenu {
       "title": "e107 Devel - Debug Mode"
     });
 
-    let domain = Utils.getDomainFromUrl(this.currentUrl);
-    let defaultMode = this.storage.get(domain, '[debug=-]');
-
     for (let [mode, label] of Object.entries(ContextMenu.menuItems)) {
       if (label === 'separator') {
-        // @fixme separator breaks default value for radios... the first radio
-        // button is always checked in each group.
-        // that.browser.contextMenus.create({
-        //   "type": "separator",
-        //   "parentId": parent
-        // });
+        _this.browser.contextMenus.create({
+          "type": "separator",
+          "parentId": parent
+        });
         continue;
       }
 
       _this.browser.contextMenus.create({
-        "type": "radio",
         "title": label,
         "parentId": parent,
-        "checked": mode === defaultMode,
         "onclick": (info, tab) => {
           _this.menuItemClick(info, tab, mode);
         }
