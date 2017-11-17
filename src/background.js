@@ -101,9 +101,14 @@ class ContextMenu {
   /**
    * Click handler for menu items.
    *
-   * @param info
-   * @param tab
-   * @param mode
+   * @param {Object} info
+   *   Information about the item clicked and the context where the click
+   *   happened.
+   * @param {Object} tab
+   *   The details of the tab where the click took place.
+   *   See https://developer.chrome.com/extensions/tabs#type-Tab.
+   * @param {String} mode
+   *   Debug mode belongs to the clicked menu item.
    */
   menuItemClick(info, tab, mode) {
     let url = tab.url;
