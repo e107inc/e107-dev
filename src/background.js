@@ -1,4 +1,5 @@
 import Storage from './helpers/Storage';
+import Utils from './helpers/Utils';
 
 /**
  * Class ContextMenu.
@@ -77,8 +78,8 @@ class ContextMenu {
       "title": "e107 Devel - Debug Mode"
     });
 
-    // @todo get saved mode from localStorage
-    let defaultMode = '[debug=-]';
+    let domain = Utils.getDomainFromUrl(this.currentUrl);
+    let defaultMode = this.storage.get(domain, '[debug=-]');
 
     for (let [mode, label] of Object.entries(ContextMenu.menuItems)) {
       if (label === 'separator') {
@@ -116,14 +117,53 @@ class ContextMenu {
    *   Debug mode belongs to the clicked menu item.
    */
   menuItemClick(info, tab, mode) {
-    let url = tab.url;
-    url = url.split("?");
-    // @todo re-apply other query parameters and fragment if there is.
+    if (tab.url) {
+      let domain = Utils.getDomainFromUrl(tab.url);
+      // Save/update debug mode for the domain.
+      this.storage.set(domain, mode);
+      // Rewrite current URL and redirect if necessary.
+      this.rewriteUrl(tab, mode);
+    }
+  }
 
-    // @todo save selected mode to localStorage.
+  /**
+   * Rewrites the URL in the current tab according to the selected debug mode,
+   * then redirects... if necessary.
+   *
+   * @param {Object} tab
+   *   The details of the tab where the click took place.
+   *   See https://developer.chrome.com/extensions/tabs#type-Tab.
+   * @param {String} mode
+   *   Debug mode belongs to the clicked menu item.
+   */
+  rewriteUrl(tab, mode) {
+    let nfo = Utils.parseUrl(tab.url);
+    // Assemble new URL with the selected debug mode.
+    let url = nfo.protocol + '://' + nfo.domain + '/' + nfo.path + '?' + mode;
+
+    // Process query parameters.
+    if (nfo.query && nfo.query !== "") {
+      let find = Object.keys(ContextMenu.menuItems);
+      // Remove any kind of debug modes applied before.
+      let query = Utils.arrayReplace(find, '', nfo.query);
+      // Remove '?' query prefix if it exists.
+      query = Utils.arrayReplace(['?'], '', query);
+      // Remove '&' query separator from the beginning of the query.
+      query = query.replace(/^&/, '');
+      // Append query to URL.
+      url += '&' + query;
+    }
+
+    // Process URL fragment.
+    if (nfo.fragment && nfo.fragment !== "") {
+      // Remove '#' fragment prefix if it exists.
+      let fragment = Utils.arrayReplace(['#'], '', nfo.fragment);
+      // Append fragment to URL.
+      url += '#' + fragment;
+    }
 
     this.browser.tabs.update(tab.id, {
-      "url": url[0] + '?' + mode
+      "url": url
     });
   }
 
