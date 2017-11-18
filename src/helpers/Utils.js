@@ -4,91 +4,38 @@
 export default class Utils {
 
   /**
-   * Returns with domain.
+   * Replace all occurrences of the search string with the replacement strings.
    *
-   * @param url
-   *   URL we want to get domain from.
+   * @param {Array} array
+   *   An array contains multiple needles.
+   * @param {String} replace
+   *   The replacement value that replaces found search values.
+   * @param {String} string
+   *   The string or array being searched and replaced on.
+   *
+   * @returns {*}
    */
-  static getDomainFromUrl(url) {
-    let parsedUrl = Utils.parseUrl(url);
-    return parsedUrl.domain;
-  }
-
-  /**
-   * Parses an URL.
-   *
-   * @param {String} url
-   *   URL to be parsed.
-   *
-   * @returns {{protocol: string, domain: string, subdomain: string, parent_domain: string, path: string, query: string, fragment: string}}
-   */
-  static parseUrl(url) {
-    let parsed_url = {
-      'protocol': '',
-      'domain': '',
-      'subdomain': '',
-      'parent_domain': '',
-      'path': '',
-      'query': '',
-      'fragment': ''
-    };
-
-    if (typeof url === "undefined" || url === null || url.length === 0) {
-      return parsed_url;
-    }
-
-    let protocol_i = url.indexOf('://');
-    parsed_url.protocol = url.substr(0, protocol_i);
-
-    let remaining_url = url.substr(protocol_i + 3, url.length);
-    let domain_i = remaining_url.indexOf('/');
-    domain_i = domain_i === -1 ? remaining_url.length - 1 : domain_i;
-    parsed_url.domain = remaining_url.substr(0, domain_i);
-    parsed_url.path = (domain_i === -1 || domain_i + 1 === remaining_url.length) ? '' : remaining_url.substr(domain_i + 1, remaining_url.length);
-
-    if (parsed_url.path && parsed_url.path.indexOf("#") !== -1) {
-      let fragment = parsed_url.path.split('#');
-      parsed_url.fragment = fragment[1];
-      // Update path with the fragment-less value.
-      parsed_url.path = fragment[0];
-    }
-
-    if (parsed_url.path && parsed_url.path.indexOf("?") !== -1) {
-      let query = parsed_url.path.split('?');
-      parsed_url.query = query[1];
-      // Update path with the query-less value.
-      parsed_url.path = query[0];
-    }
-
-    let domain_parts = parsed_url.domain.split('.');
-    switch (domain_parts.length) {
-      case 2:
-        parsed_url.subdomain = '';
-        parsed_url.host = domain_parts[0];
-        parsed_url.tld = domain_parts[1];
-        break;
-      case 3:
-        parsed_url.subdomain = domain_parts[0];
-        parsed_url.host = domain_parts[1];
-        parsed_url.tld = domain_parts[2];
-        break;
-      case 4:
-        parsed_url.subdomain = domain_parts[0];
-        parsed_url.host = domain_parts[1];
-        parsed_url.tld = domain_parts[2] + '.' + domain_parts[3];
-        break;
-    }
-
-    parsed_url.parent_domain = parsed_url.host + '.' + parsed_url.tld;
-    return parsed_url;
-  }
-
   static arrayReplace(array, replace, string) {
     let replaceString = string;
     for (let i = 0; i < array.length; i++) {
-      replaceString = replaceString.replace(array[i], replace);
+      replaceString = replaceString.replace(new RegExp(array[i], 'g'), replace);
     }
     return replaceString;
+  }
+
+  /**
+   * Strip the specified characters from the beginning of a string.
+   *
+   * @param {String} string
+   *   The input string.
+   * @param {String} character
+   *   The characters you want to strip.
+   *
+   * @returns {*|XML|void}
+   */
+  static leftTrim(string, character) {
+    let pattern = '/^' + character + '/';
+    return string.replace(pattern, '');
   }
 
 }

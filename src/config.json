@@ -1,0 +1,23 @@
+{
+  "MenuItems": {
+    "[debug=-]": "Off",
+    "sep1": "separator",
+    "[debug=basic+]": "Basic",
+    "[debug=counts+]": "Traffic Counters",
+    "[debug=showsql+]": "SQL Analysis",
+    "[debug=time+]": "Time Analysis",
+    "sep2": "separator",
+    "[debug=notice+]": "Notices (PHP)",
+    "[debug=warn+]": "Warnings (PHP)",
+    "[debug=backtrace+]": "Backtraces (PHP)",
+    "[debug=deprecated+]": "Deprecated Functions (PHP)",
+    "[debug=inc+]": "Included Files (PHP)",
+    "sep3": "separator",
+    "[debug=paths+]": "Paths + Variables",
+    "[debug=bbsc+]": "BBCodes + Shortcodes",
+    "[debug=sc+]": "Shortcode Placement",
+    "sep4": "separator",
+    "[debug=sql+]": "SQL Analysis (Detailed)",
+    "[debug=everything+]": "All Details"
+  }
+}

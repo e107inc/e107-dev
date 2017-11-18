@@ -7,19 +7,10 @@ module.exports = {
     './assets/js/content': './src/content',
     './assets/js/popup': './src/popup'
   },
-
   output: {
     path: path.resolve(__dirname, 'extension'),
     filename: '[name].js'
   },
-
-  plugins: [
-    // Provide translations plugin to interpolate translation arguments.
-    new webpack.ProvidePlugin({
-      translations: path.resolve('./config/translations'),
-    })
-  ],
-
   module: {
     loaders: [
       {
@@ -35,7 +26,11 @@ module.exports = {
         exclude: [
           path.resolve(__dirname, "node_modules"),
         ]
-      }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
+      },
     ]
   },
   stats: {
