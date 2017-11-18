@@ -1,4 +1,4 @@
-import StorageLocal from '../storage/StorageLocal';
+import Storage from '../storage/Storage';
 import UrlParser from '../helpers/UrlParser';
 
 /**
@@ -11,7 +11,7 @@ export default class DebugModeSetter {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new StorageLocal('e107-dev');
+    this.storage = new Storage();
   }
 
   /**

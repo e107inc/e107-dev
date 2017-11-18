@@ -1,12 +1,12 @@
 /**
- * Class StorageLocal.
+ * Class StorageSync.
  *
- * Wrapper class for storage.local API.
+ * Wrapper class for storage.sync API.
  *
- * @see https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/local
- * @see https://developer.chrome.com/extensions/storage#property-local
+ * @see https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/storage/sync
+ * @see https://developer.chrome.com/extensions/storage#property-sync
  */
-export default class StorageLocal {
+export default class StorageSync {
 
   /**
    * Constructor.
@@ -27,7 +27,7 @@ export default class StorageLocal {
       [key]: value
     };
 
-    _this.browser.storage.local.set(data, result => {
+    _this.browser.storage.sync.set(data, result => {
       if (typeof callback === "function") {
         callback(result);
       }
@@ -42,7 +42,7 @@ export default class StorageLocal {
   get(key, def, callback) {
     let _this = this;
 
-    _this.browser.storage.local.get(key, result => {
+    _this.browser.storage.sync.get(key, result => {
       let value = result[key] || def;
 
       if (typeof callback === "function") {
@@ -58,7 +58,7 @@ export default class StorageLocal {
   remove(key, callback) {
     let _this = this;
 
-    _this.browser.storage.local.remove(key, result => {
+    _this.browser.storage.sync.remove(key, result => {
       if (typeof callback === "function") {
         callback(result);
       }

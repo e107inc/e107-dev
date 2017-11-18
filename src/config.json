@@ -1,4 +1,5 @@
 {
+  "StorageType": "local",
   "MenuItems": {
     "[debug=-]": "Off",
     "sep1": "separator",
