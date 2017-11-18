@@ -39,32 +39,35 @@ export default class DebugModeSetter {
       let domain = UrlParser.getDomainFromUrl(url);
       let debugMode = UrlParser.getDebugParam(url, false);
 
-      console.log("Domain: " + domain);
+      // console.log("From URL: " + debugMode);
 
-      _this.storage.getValue(domain, false, mode => {
-        // If URL does not contain debug mode, but we have stored value.
-        if (!debugMode && mode !== false && mode !== '[debug=-]' && mode !== '') {
-          console.log("URL does not contain debug mode, but we have stored value.");
-          _this.rewriteUrl(tab, mode);
-          return;
-        }
+      _this.storage.get(domain, false, mode => {
+        // console.log("From storage: " + mode);
 
-        // If URL contains debug mode, but it's not the same as the stored value.
-        if (debugMode !== false && debugMode !== mode && debugMode !== '') {
-          console.log("URL contains debug mode, but it's not the same as the stored value.");
-          console.log("New debug mode: " + debugMode);
+        // If URL contains debug mode.
+        if (debugMode !== false && debugMode !== '') {
+          // console.log("URL contains debug mode, save it...");
 
           if (debugMode === '[debug=-]') {
-            _this.storage.removeValue(domain);
+            _this.storage.remove(domain);
           }
           else {
-            _this.storage.setValue(domain, mode);
+            _this.storage.set(domain, debugMode, result => {
+              // console.log(result);
+            });
           }
-
-          return;
         }
-
-        console.log("URL does not contain debug mode, and no stored value.");
+        // If URL does not contain debug mode.
+        else {
+          // If we have stored debug mode.
+          if (mode !== false && mode !== '') {
+            // console.log("URL does not contain debug mode, but we have stored value.");
+            _this.rewriteUrl(tab, mode);
+          }
+          else {
+            // console.log("URL does not contain debug mode, and no stored value.");
+          }
+        }
       });
     });
   }
@@ -81,7 +84,6 @@ export default class DebugModeSetter {
    */
   rewriteUrl(tab, mode) {
     let url = UrlParser.setDebugParam(tab.url, mode);
-    console.log("New URL: " + url);
     this.browser.tabs.update(tab.id, {
       "url": url
     });

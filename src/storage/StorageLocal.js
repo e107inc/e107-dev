@@ -19,42 +19,16 @@ export default class StorageLocal {
   /**
    * @param key
    * @param value
-   */
-  setValue(key, value) {
-    let _this = this;
-
-    _this.getValueAll(result => {
-      result[key] = value;
-
-      let data = {};
-      data[_this.id] = result;
-
-      _this.browser.storage.local.set(data);
-    });
-  }
-
-  /**
-   * @param key
-   * @param def
    * @param callback
    */
-  getValue(key, def, callback) {
+  set(key, value, callback) {
     let _this = this;
 
-    _this.browser.storage.local.get(_this.id, result => {
-      if (typeof callback === "function") {
-        callback((result[key] || def));
-      }
-    });
-  }
+    let data = {
+      [key]: value
+    };
 
-  /**
-   * @param callback
-   */
-  getValueAll(callback) {
-    let _this = this;
-
-    _this.browser.storage.local.get(_this.id, result => {
+    _this.browser.storage.local.set(data, result => {
       if (typeof callback === "function") {
         callback(result);
       }
@@ -63,22 +37,33 @@ export default class StorageLocal {
 
   /**
    * @param key
+   * @param def
+   * @param callback
    */
-  removeValue(key) {
+  get(key, def, callback) {
     let _this = this;
 
-    _this.getValueAll(result => {
-      for (let [_key, _value] of Object.entries(result)) {
-        if (_key === key) {
-          delete result[key];
-        }
+    _this.browser.storage.local.get(key, result => {
+      let value = result[key] || def;
+
+      if (typeof callback === "function") {
+        callback(value);
       }
+    });
+  }
 
-      let data = {};
-      data[_this.id] = result;
+  /**
+   * @param key
+   * @param callback
+   */
+  remove(key, callback) {
+    let _this = this;
 
-      _this.browser.storage.local.set(data);
-    })
+    _this.browser.storage.local.remove(key, result => {
+      if (typeof callback === "function") {
+        callback(result);
+      }
+    });
   }
 
 }
