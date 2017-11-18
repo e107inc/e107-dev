@@ -33,6 +33,10 @@ export default class DebugModeHandler {
     let _this = this;
 
     _this.browser.runtime.onMessage.addListener(function (request, sender) {
+      if (!request.hasOwnProperty('key') || request.key !== 'e107-dev') {
+        return;
+      }
+
       let url = request.url;
       let tab = sender.tab;
 
