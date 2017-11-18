@@ -1,6 +1,4 @@
-import StorageLocal from '../storage/StorageLocal';
 import UrlParser from '../helpers/UrlParser';
-import Utils from '../helpers/Utils';
 import Config from '../config.json';
 
 /**
@@ -9,20 +7,10 @@ import Config from '../config.json';
 export default class ContextMenu {
 
   /**
-   * Returns with menu items.
-   *
-   * @return {Object}
-   */
-  static get menuItems() {
-    return Config.MenuItems;
-  }
-
-  /**
    * Constructor.
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new StorageLocal('e107-dev');
   }
 
   /**
@@ -40,7 +28,6 @@ export default class ContextMenu {
       'active': true,
       'lastFocusedWindow': true
     }, function (tabs) {
-      _this.currentUrl = tabs[0].url;
       _this.buildMenu();
     });
   };
@@ -58,7 +45,7 @@ export default class ContextMenu {
       "title": "e107 Devel - Debug Mode"
     });
 
-    for (let [mode, label] of Object.entries(ContextMenu.menuItems)) {
+    for (let [mode, label] of Object.entries(Config.MenuItems)) {
       if (label === 'separator') {
         _this.browser.contextMenus.create({
           "type": "separator",
@@ -91,62 +78,11 @@ export default class ContextMenu {
    */
   menuItemClick(info, tab, mode) {
     if (tab.url) {
-      let domain = UrlParser.getDomainFromUrl(tab.url);
-
-      if (mode === '[debug=-]') {
-        // Remove saved debug mode, so DebugModeHandler in content.js will not
-        // redirect if debug mode is missing from the URL.
-        this.storage.removeValue(domain);
-      }
-      else {
-        // Save/update debug mode for the domain.
-        this.storage.setValue(domain, mode);
-      }
-
-      // Rewrite current URL and redirect if necessary.
-      this.rewriteUrl(tab, mode);
+      let url = UrlParser.setDebugParam(tab.url, mode);
+      this.browser.tabs.update(tab.id, {
+        "url": url
+      });
     }
-  }
-
-  /**
-   * Rewrites the URL in the current tab according to the selected debug mode,
-   * then redirects... if necessary.
-   *
-   * @param {Object} tab
-   *   The details of the tab where the click took place.
-   *   See https://developer.chrome.com/extensions/tabs#type-Tab.
-   * @param {String} mode
-   *   Debug mode belongs to the clicked menu item.
-   */
-  rewriteUrl(tab, mode) {
-    let nfo = UrlParser.parseUrl(tab.url);
-    // Assemble new URL with the selected debug mode.
-    let url = nfo.protocol + '://' + nfo.domain + '/' + nfo.path + '?' + mode;
-
-    // Process query parameters.
-    if (nfo.query && nfo.query !== "") {
-      let find = Object.keys(ContextMenu.menuItems);
-      // Remove any kind of debug modes applied before.
-      let query = Utils.arrayReplace(find, '', nfo.query);
-      // Remove '?' query prefix if it exists.
-      query = Utils.arrayReplace(['?'], '', query);
-      // Remove '&' query separator from the beginning of the query.
-      query = Utils.leftTrim(query, '&');
-      // Append query to URL.
-      url += (query !== "") ? '&' + query : '';
-    }
-
-    // Process URL fragment.
-    if (nfo.fragment && nfo.fragment !== "") {
-      // Remove '#' fragment prefix if it exists.
-      let fragment = Utils.arrayReplace(['#'], '', nfo.fragment);
-      // Append fragment to URL.
-      url += (fragment !== "") ? '#' + fragment : '';
-    }
-
-    this.browser.tabs.update(tab.id, {
-      "url": url
-    });
   }
 
 }

@@ -18,7 +18,7 @@ export default class Utils {
   static arrayReplace(array, replace, string) {
     let replaceString = string;
     for (let i = 0; i < array.length; i++) {
-      replaceString = replaceString.replace(new RegExp(array[i], 'g'), replace);
+      replaceString = replaceString.replace(array[i], replace);
     }
     return replaceString;
   }

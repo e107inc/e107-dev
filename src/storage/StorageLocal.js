@@ -23,9 +23,13 @@ export default class StorageLocal {
   setValue(key, value) {
     let _this = this;
 
-    this.browser.storage.local.get(_this.id, result => {
+    _this.getValueAll(result => {
       result[key] = value;
-      this.browser.storage.local.set(result);
+
+      let data = {};
+      data[_this.id] = result;
+
+      _this.browser.storage.local.set(data);
     });
   }
 
@@ -37,9 +41,22 @@ export default class StorageLocal {
   getValue(key, def, callback) {
     let _this = this;
 
-    this.browser.storage.local.get(_this.id, result => {
+    _this.browser.storage.local.get(_this.id, result => {
       if (typeof callback === "function") {
         callback((result[key] || def));
+      }
+    });
+  }
+
+  /**
+   * @param callback
+   */
+  getValueAll(callback) {
+    let _this = this;
+
+    _this.browser.storage.local.get(_this.id, result => {
+      if (typeof callback === "function") {
+        callback(result);
       }
     });
   }
@@ -50,14 +67,18 @@ export default class StorageLocal {
   removeValue(key) {
     let _this = this;
 
-    this.browser.storage.local.get(_this.id, result => {
+    _this.getValueAll(result => {
       for (let [_key, _value] of Object.entries(result)) {
         if (_key === key) {
           delete result[key];
         }
       }
-      this.browser.storage.local.set(result);
-    });
+
+      let data = {};
+      data[_this.id] = result;
+
+      _this.browser.storage.local.set(data);
+    })
   }
 
 }

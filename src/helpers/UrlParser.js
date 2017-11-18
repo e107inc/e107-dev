@@ -1,3 +1,6 @@
+import Config from '../config.json';
+import Utils from '../helpers/Utils';
+
 /**
  * Class UrlParser.
  */
@@ -81,6 +84,49 @@ export default class UrlParser {
 
     parsed_url.parent_domain = parsed_url.host + '.' + parsed_url.tld;
     return parsed_url;
+  }
+
+  static setDebugParam(url, mode) {
+    let nfo = UrlParser.parseUrl(url);
+    // Assemble new URL with the selected debug mode.
+    let newUrl = nfo.protocol + '://' + nfo.domain + '/' + nfo.path + '?' + mode;
+
+    // Process query parameters.
+    if (nfo.query && nfo.query !== "") {
+      let find = Object.keys(Config.MenuItems);
+      // Remove any kind of debug modes applied before.
+      let query = Utils.arrayReplace(find, '', nfo.query);
+      // Remove '?' query prefix if it exists.
+      query = Utils.arrayReplace(['?'], '', query);
+      // Remove '&' query separator from the beginning of the query.
+      query = Utils.leftTrim(query, '&');
+      // Append query to URL.
+      newUrl += (query !== "") ? '&' + query : '';
+    }
+
+    // Process URL fragment.
+    if (nfo.fragment && nfo.fragment !== "") {
+      // Remove '#' fragment prefix if it exists.
+      let fragment = Utils.arrayReplace(['#'], '', nfo.fragment);
+      // Append fragment to URL.
+      newUrl += (fragment !== "") ? '#' + fragment : '';
+    }
+
+    return newUrl;
+  }
+
+  static getDebugParam(url, def) {
+    for (let [mode, label] of Object.entries(Config.MenuItems)) {
+      if (label === 'separator') {
+        continue;
+      }
+
+      if (url.indexOf(mode) !== -1) {
+        return mode;
+      }
+    }
+
+    return def;
   }
 
 }

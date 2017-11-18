@@ -17,7 +17,6 @@ export default class Background {
    * Init.
    */
   init() {
-    // @todo only call this if current website is using e107.
     this.initPlugins();
   }
 
