@@ -1,5 +1,5 @@
 import ContextMenu from './plugins/ContextMenu';
-import DebugModeSetter from './plugins/DebugModeSetter';
+import DebugModeHandler from './plugins/DebugModeHandler';
 
 /**
  * Class Background.
@@ -29,8 +29,8 @@ export default class Background {
     this.contextMenu.init();
 
     // Apply stored debug mode on the current URL, if there is.
-    this.debugModeSetter = new DebugModeSetter();
-    this.debugModeSetter.init();
+    this.debugModeHandler = new DebugModeHandler();
+    this.debugModeHandler.init();
   }
 
 }

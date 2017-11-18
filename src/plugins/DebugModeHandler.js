@@ -2,9 +2,9 @@ import Storage from '../storage/Storage';
 import UrlParser from '../helpers/UrlParser';
 
 /**
- * Class DebugModeSetter.
+ * Class DebugModeHandler.
  */
-export default class DebugModeSetter {
+export default class DebugModeHandler {
 
   /**
    * Constructor.
