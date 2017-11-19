@@ -23,7 +23,6 @@
     ]
   }],
   "background": {
-    "persistent": true,
     "scripts": [
       "assets/js/background.js"
     ]
