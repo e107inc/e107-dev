@@ -30,6 +30,7 @@
   },
   "permissions": [
     "tabs",
+    "cookies",
     "storage",
     "contextMenus",
     "<all_urls>"

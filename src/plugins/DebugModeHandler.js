@@ -1,5 +1,6 @@
 import Storage from '../storage/Storage';
 import UrlParser from '../helpers/UrlParser';
+import Utils from '../helpers/Utils';
 
 /**
  * Class DebugModeHandler.
@@ -32,7 +33,7 @@ export default class DebugModeHandler {
   initListener() {
     let _this = this;
 
-    _this.browser.runtime.onMessage.addListener(function (request, sender) {
+    _this.browser.runtime.onMessage.addListener((request, sender) => {
       if (!request.hasOwnProperty('key') || request.key !== 'e107-dev') {
         return;
       }
@@ -40,37 +41,42 @@ export default class DebugModeHandler {
       let url = request.url;
       let tab = sender.tab;
 
-      let domain = UrlParser.getDomainFromUrl(url);
-      let debugMode = UrlParser.getDebugParam(url, false);
+      // @see https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/cookies/getAll
+      _this.browser.cookies.getAll({"url": url}, cookies => {
+        let isE107 = Utils.isE107(cookies);
+        let hasDebugCookie = Utils.debugModeIsOn(cookies);
 
-      // console.log("From URL: " + debugMode);
+        if (isE107) {
+          let domain = UrlParser.getDomainFromUrl(url);
+          let debugMode = UrlParser.getDebugParam(url, false);
 
-      _this.storage.get(domain, false, mode => {
-        // console.log("From storage: " + mode);
-
-        // If URL contains debug mode.
-        if (debugMode !== false && debugMode !== '') {
-          // console.log("URL contains debug mode, save it...");
-
-          if (debugMode === '[debug=-]') {
-            _this.storage.remove(domain);
-          }
-          else {
-            _this.storage.set(domain, debugMode, result => {
-              // console.log(result);
-            });
-          }
-        }
-        // If URL does not contain debug mode.
-        else {
-          // If we have stored debug mode.
-          if (mode !== false && mode !== '') {
-            // console.log("URL does not contain debug mode, but we have stored value.");
-            _this.rewriteUrl(tab, mode);
-          }
-          else {
-            // console.log("URL does not contain debug mode, and no stored value.");
-          }
+          _this.storage.get(domain, false, mode => {
+            // If URL contains debug mode.
+            if (debugMode !== false && debugMode !== '') {
+              // If debug mode is off: remove it from local storage.
+              if (debugMode === '[debug=-]') {
+                _this.storage.remove(domain);
+              }
+              // Update debug mode in local storage.
+              else {
+                _this.storage.set(domain, debugMode);
+              }
+            }
+            // If URL does not contain debug mode.
+            else {
+              // URL does not contain debug mode, but we have stored value.
+              if (mode !== false && mode !== '') {
+                // Redirect only if there is no debug cookie set.
+                if (!hasDebugCookie) {
+                  _this.rewriteUrl(tab, mode);
+                }
+              }
+              // URL does not contain debug mode, and no stored value.
+              else {
+                // Do nothing.
+              }
+            }
+          });
         }
       });
     });

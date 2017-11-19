@@ -21,15 +21,7 @@ export default class ContextMenu {
       return;
     }
 
-    // Binding this.
-    let _this = this;
-
-    this.browser.tabs.query({
-      'active': true,
-      'lastFocusedWindow': true
-    }, function (tabs) {
-      _this.buildMenu();
-    });
+    this.buildMenu();
   };
 
   /**
@@ -42,7 +34,7 @@ export default class ContextMenu {
     // @see https://developer.chrome.com/apps/contextMenus
     let parent = _this.browser.contextMenus.create({
       // @todo l10n.
-      "title": "e107 Devel - Debug Mode"
+      "title": "e107 Dev - Debug Mode"
     });
 
     for (let [mode, label] of Object.entries(Config.MenuItems)) {
@@ -58,7 +50,7 @@ export default class ContextMenu {
         "title": label,
         "parentId": parent,
         "onclick": (info, tab) => {
-          _this.menuItemClick(info, tab, mode);
+          _this.menuItemClick(tab, mode);
         }
       });
     }
@@ -67,16 +59,13 @@ export default class ContextMenu {
   /**
    * Click handler for menu items.
    *
-   * @param {Object} info
-   *   Information about the item clicked and the context where the click
-   *   happened.
    * @param {Object} tab
    *   The details of the tab where the click took place.
    *   See https://developer.chrome.com/extensions/tabs#type-Tab.
    * @param {String} mode
    *   Debug mode belongs to the clicked menu item.
    */
-  menuItemClick(info, tab, mode) {
+  menuItemClick(tab, mode) {
     if (tab.url) {
       let url = UrlParser.setDebugParam(tab.url, mode);
       this.browser.tabs.update(tab.id, {

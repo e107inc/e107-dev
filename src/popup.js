@@ -1,15 +1,44 @@
 import jQuery from "jquery";
+import Utils from './helpers/Utils';
 
-(function ($, browser) {
-  let parseUrl = (url) => {
-    $.ajax({
-      url: url,
-      type: 'GET',
-      success: (res) => {
-        let $info = $('.site-info');
-        let $text = $('<span></span>');
+/**
+ * Class Popup.
+ */
+export default class Popup {
 
-        if (res.indexOf("e107.settings") >= 0) {
+  /**
+   * Constructor.
+   */
+  constructor() {
+    this.browser = chrome || browser;
+  }
+
+  /**
+   * Init.
+   */
+  init() {
+    if (typeof this.browser === "undefined") {
+      return;
+    }
+
+    this.updateSiteInfo();
+  }
+
+  /**
+   * Updates '.site-info' contents.
+   */
+  updateSiteInfo() {
+    let _this = this;
+
+    _this.browser.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      let url = tabs[0].url;
+
+      // @see https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/cookies/getAll
+      _this.browser.cookies.getAll({"url": url}, cookies => {
+        let $info = jQuery('.site-info');
+        let $text = jQuery('<span></span>');
+
+        if (Utils.isE107(cookies)) {
           $text.addClass('success');
           // @todo l10n.
           $text.html("This website uses e107 CMS");
@@ -21,17 +50,11 @@ import jQuery from "jquery";
         }
 
         $info.html($text);
-      }
-    });
-  };
-
-  if (browser.tabs) {
-    browser.tabs.query({
-      active: true,
-      currentWindow: true
-    }, (tabs) => {
-      parseUrl(tabs[0].url);
+      });
     });
   }
 
-})(jQuery, (chrome || browser));
+}
+
+const popup = new Popup();
+popup.init();
