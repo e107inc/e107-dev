@@ -60,6 +60,12 @@ fieldset legend.form-text {
   color: rgba(0, 0, 0, 0.65);
 }
 
+.main-container .main-content .list-group .list-group-item {
+  cursor: pointer;
+}
+
+/* Links */
+
 .main-container .main-content p.text-muted {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -96,6 +102,25 @@ fieldset legend.form-text {
   color: #007bff;
 }
 
+/* Settings */
+
+.main-container .main-content .settings-container .list-group .setting-label {
+  font-size: .9rem;
+}
+
+.main-container .main-content .settings-container .list-group .switch-container {
+
+}
+
+.main-container .main-content .settings-container .list-group small {
+  display: block;
+  line-height: .85rem;
+  font-size: 0.70rem;
+  padding-top: 5px;
+}
+
+/* Navigation */
+
 .main-container .navigation {
   position: absolute;
   top: auto;
@@ -126,4 +151,98 @@ fieldset legend.form-text {
 
 .main-container .navigation .nav-pills .nav-item .nav-link.active {
   border-top: 1px solid #007bff;
+}
+
+/* Switch */
+
+.toggle-input {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+.toggle-input + .toggle-switch {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input.toggle-input-round-flat + .toggle-switch {
+  padding: 2px;
+  width: 42px;
+  height: 22px;
+
+  background-color: #dddddd;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+
+input.toggle-input-round-flat + .toggle-switch:before,
+input.toggle-input-round-flat + .toggle-switch:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+input.toggle-input-round-flat + .toggle-switch:before {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  right: 2px;
+
+  background-color: #fff;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+
+  -webkit-transition: background 0.4s;
+  -moz-transition: background 0.4s;
+  -o-transition: background 0.4s;
+  transition: background 0.4s;
+}
+
+input.toggle-input-round-flat + .toggle-switch:after {
+  top: 5px;
+  left: 5px;
+  bottom: 5px;
+  width: 12px;
+
+  background-color: #dddddd;
+
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border-radius: 12px;
+
+  -webkit-transition: margin 0.4s, background 0.4s;
+  -moz-transition: margin 0.4s, background 0.4s;
+  -o-transition: margin 0.4s, background 0.4s;
+  transition: margin 0.4s, background 0.4s;
+}
+
+input.toggle-input-round-flat:checked + .toggle-switch {
+  background-color: #007bff;
+}
+
+input.toggle-input-round-flat:checked + .toggle-switch:after {
+  margin-left: 20px;
+  background-color: #007bff;
 }

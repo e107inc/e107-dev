@@ -7,19 +7,18 @@
 <body>
 
 <div class="main-container">
-
   <div class="main-content">
     <div class="tab-content" id="main-tabs">
       <div class="tab-pane fade show active" id="main-tabs-debug" role="tabpanel" aria-labelledby="main-tabs-debug">
         <fieldset class="form-group">
           <legend class="form-text">Debug Mode</legend>
           <div id="debug-modes" class="custom-controls-stacked">
-
+            <!-- Placeholder -->
           </div>
         </fieldset>
       </div>
 
-      <div class="tab-pane fade" id="main-tabs-links" role="tabpanel" aria-labelledby="main-tabs-links">
+      <div class="tab-pane fade links-container" id="main-tabs-links" role="tabpanel" aria-labelledby="main-tabs-links">
         <fieldset class="form-group">
           <legend class="form-text">Help & Useful links</legend>
 
@@ -72,14 +71,39 @@
               </span>
             </a>
           </div>
-
         </fieldset>
       </div>
 
-      <div class="tab-pane fade" id="main-tabs-settings" role="tabpanel" aria-labelledby="main-tabs-settings">
+      <div class="tab-pane fade settings-container" id="main-tabs-settings" role="tabpanel" aria-labelledby="main-tabs-settings">
         <fieldset class="form-group">
           <legend class="form-text">Settings</legend>
-          <div class="empty-middle">Under development...</div>
+
+          <div class="list-group">
+            <label class="list-group-item list-group-item-action flex-column align-items-start">
+              <span class="d-flex w-100 justify-content-between">
+                <span class="setting-label">"Sync" storage</span>
+                <span class="switch-container pull-right">
+                  <input class="toggle-input toggle-input-round-flat" type="checkbox"/>
+                  <span class="toggle-switch"></span>
+                </span>
+              </span>
+              <small class="text-muted">
+                When using "sync", the stored debug modes will automatically be synced to any browser that you are logged into.
+              </small>
+            </label>
+            <label class="list-group-item list-group-item-action flex-column align-items-start">
+              <span class="d-flex w-100 justify-content-between">
+                <span class="setting-label">Auto adjustment</span>
+                <span class="switch-container pull-right">
+                  <input class="toggle-input toggle-input-round-flat" type="checkbox"/>
+                  <span class="toggle-switch"></span>
+                </span>
+              </span>
+              <small class="text-muted">
+                Automatically set debug mode on websites, where "e107_debug_level" cookie is missing, but there is available debug mode in the storage.
+              </small>
+            </label>
+          </div>
         </fieldset>
       </div>
     </div>
@@ -104,7 +128,6 @@
       </li>
     </ul>
   </div>
-
 </div>
 
 <script src="assets/js/popup.js"></script>
