@@ -39,26 +39,21 @@ export default class Popup {
   initDebugMenu() {
     let _this = this;
 
-    _this.browser.tabs.query({active: true, currentWindow: true}).then(
-      (tabs) => {
-        let url = tabs[0].url;
+    _this.browser.tabs.query({active: true, currentWindow: true}, tabs => {
+      let url = tabs[0].url;
 
-        _this.browser.cookies.getAll({"url": url}, cookies => {
-          let isE107 = Utils.isE107(cookies);
+      _this.browser.cookies.getAll({"url": url}, cookies => {
+        let isE107 = Utils.isE107(cookies);
 
-          if (isE107) {
-            let debugMode = UrlParser.getDebugParam(url, false);
-            _this.buildDebugMenu(debugMode);
-          }
-          else {
-            _this.buildDebugMenu('---');
-          }
-        });
-      },
-      () => {
-        _this.buildDebugMenu('---');
-      }
-    );
+        if (isE107) {
+          let debugMode = UrlParser.getDebugParam(url, false);
+          _this.buildDebugMenu(debugMode);
+        }
+        else {
+          _this.buildDebugMenu('---');
+        }
+      });
+    });
   }
 
   buildDebugMenu(debugMode) {
