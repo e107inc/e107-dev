@@ -1,4 +1,5 @@
 import jQuery from 'jquery';
+import Storage from './includes/storage/Storage';
 import Utils from './includes/helpers/Utils';
 import UrlParser from './includes/helpers/UrlParser';
 
@@ -19,6 +20,7 @@ export default class Popup {
    */
   constructor() {
     this.browser = chrome || browser;
+    this.storage = new Storage();
   }
 
   /**
@@ -46,8 +48,11 @@ export default class Popup {
         let isE107 = Utils.isE107(cookies);
 
         if (isE107) {
-          let debugMode = UrlParser.getDebugParam(url, false);
-          _this.buildDebugMenu(debugMode);
+          let domain = UrlParser.getDomainFromUrl(url);
+
+          _this.storage.get(domain, false, mode => {
+            _this.buildDebugMenu(mode);
+          });
         }
         else {
           _this.buildDebugMenu('---');
@@ -64,7 +69,7 @@ export default class Popup {
 
     if (debugMode === '---') {
       let $markup = jQuery('<div class="empty-middle"></div>');
-      $markup.text("This website doesn't use e107...");
+      $markup.text("Visit an e107-based website first...");
       $markup.appendTo($list);
       return;
     }
@@ -90,6 +95,16 @@ export default class Popup {
       if (debugMode && debugMode === mode) {
         $input.attr('checked', true);
       }
+
+      $input.on('click', event => {
+        _this.browser.tabs.query({active: true, currentWindow: true}, tabs => {
+          let url = UrlParser.setDebugParam(tabs[0].url, mode);
+
+          _this.browser.tabs.update(tabs[0].id, {
+            "url": url
+          });
+        });
+      });
 
       $descr.text(label);
 

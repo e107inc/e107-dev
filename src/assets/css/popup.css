@@ -32,8 +32,6 @@ fieldset legend.form-text {
   position: relative;
   width: 300px;
   height: 430px;
-
-  border: 1px solid #007bff;
 }
 
 .main-container .main-content {
@@ -54,6 +52,7 @@ fieldset legend.form-text {
 }
 
 .main-container .main-content .empty-middle {
+  font-size: 0.75rem;
   font-style: italic;
   font-weight: bold;
   text-align: center;
@@ -68,7 +67,7 @@ fieldset legend.form-text {
 }
 
 .main-container .main-content .list-group .list-group-item {
-  padding: .70rem 1.25rem;
+  padding: .5rem .7rem;
 }
 
 .main-container .main-content .list-group .list-group-item:first-child {
@@ -83,7 +82,7 @@ fieldset legend.form-text {
 }
 
 .main-container .main-content .list-group .list-group-item-action {
-  color: rgba(0, 0, 0, 0.65);
+  color: rgba(0, 0, 0, 0.75);
   font-weight: bold;
 }
 
@@ -91,6 +90,10 @@ fieldset legend.form-text {
   font-size: 1.1rem;
   font-weight: normal;
   color: #868e96;
+}
+
+.main-container .main-content .list-group .list-group-item-action:hover .badge .fa {
+  color: #007bff;
 }
 
 .main-container .navigation {
@@ -104,8 +107,8 @@ fieldset legend.form-text {
 }
 
 .main-container .navigation .nav-pills .nav-item {
-  border-top: 1px solid #007bff;
-  border-right: 1px solid #007bff;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .main-container .navigation .nav-pills .nav-item:last-child {
@@ -113,10 +116,14 @@ fieldset legend.form-text {
 }
 
 .main-container .navigation .nav-pills .nav-item .nav-link {
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-align: center;
 
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
+}
+
+.main-container .navigation .nav-pills .nav-item .nav-link.active {
+  border-top: 1px solid #007bff;
 }

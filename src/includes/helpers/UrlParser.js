@@ -93,7 +93,7 @@ export default class UrlParser {
 
     // Process query parameters.
     if (nfo.query && nfo.query !== "") {
-      let find = Object.keys(Config.MenuItems);
+      let find = Object.keys(MenuItems);
       // Remove any kind of debug modes applied before.
       let query = Utils.arrayReplace(find, '', nfo.query);
       // Remove '?' query prefix if it exists.
