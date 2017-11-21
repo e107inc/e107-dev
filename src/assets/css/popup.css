@@ -1,0 +1,122 @@
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+
+a,
+a:visited,
+a:focus,
+a:active {
+  color: #337ab7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+fieldset legend {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 .5rem 0;
+
+  color: #007bff;
+  border-bottom: 1px solid #007bff;
+}
+
+fieldset legend.form-text {
+  margin-top: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 300px;
+  height: 430px;
+
+  border: 1px solid #007bff;
+}
+
+.main-container .main-content {
+  width: 100%;
+  height: 385px; /* 430 - 45 (navigation) */
+
+  padding: 5px 15px 5px 10px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main-container .main-content hr {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.main-container .main-content .empty-middle {
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 150px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.main-container .main-content p.text-muted {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.main-container .main-content .list-group .list-group-item {
+  padding: .70rem 1.25rem;
+}
+
+.main-container .main-content .list-group .list-group-item:first-child {
+  border-top-left-radius: .20rem;
+  border-top-right-radius: .20rem;
+}
+
+.main-container .main-content .list-group .list-group-item:last-child {
+  margin-bottom: 0;
+  border-bottom-right-radius: .20rem;
+  border-bottom-left-radius: .20rem;
+}
+
+.main-container .main-content .list-group .list-group-item-action {
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: bold;
+}
+
+.main-container .main-content .list-group .list-group-item-action .badge .fa {
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: #868e96;
+}
+
+.main-container .navigation {
+  position: absolute;
+  top: auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-color: #ffffff;
+}
+
+.main-container .navigation .nav-pills .nav-item {
+  border-top: 1px solid #007bff;
+  border-right: 1px solid #007bff;
+}
+
+.main-container .navigation .nav-pills .nav-item:last-child {
+  border-right: none;
+}
+
+.main-container .navigation .nav-pills .nav-item .nav-link {
+  font-size: 1.2rem;
+  text-align: center;
+
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}

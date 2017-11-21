@@ -1,5 +1,5 @@
-import Config from '../config.json';
-import Utils from '../helpers/Utils';
+import MenuItems from '../../config/menu.items.json';
+import Utils from './Utils';
 
 /**
  * Class UrlParser.
@@ -116,7 +116,7 @@ export default class UrlParser {
   }
 
   static getDebugParam(url, def) {
-    for (let [mode, label] of Object.entries(Config.MenuItems)) {
+    for (let [mode, label] of Object.entries(MenuItems)) {
       if (label === 'separator') {
         continue;
       }

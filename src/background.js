@@ -1,5 +1,5 @@
-import ContextMenu from './plugins/ContextMenu';
-import DebugModeHandler from './plugins/DebugModeHandler';
+import ContextMenu from './includes/plugins/ContextMenu';
+import DebugModeHandler from './includes/plugins/DebugModeHandler';
 
 /**
  * Class Background.

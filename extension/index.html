@@ -3,27 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <title>e107 Dev - Popup</title>
-  <link type="text/css" rel="stylesheet" href="assets/css/popup.css" media="all"/>
 </head>
 <body>
 
 <div class="main-container">
-  <a class="github-link" href="https://github.com/e107inc/e107-dev" target="_blank">
-    <img src="assets/images/github.png" width="149" height="149" align="Fork me on Github"/>
-  </a>
-  <div class="inner-container">
-    <h1>e107 Dev</h1>
-    <div class="created-by">
-      Created by <a href="https://github.com/e107inc" target="_blank">e107inc</a>
-    </div>
-    <div class="help-text">
-      <strong>Usage:</strong> Right click on a website that is using
-      <a href="https://e107.org/" target="_blank">e107 Bootstrap</a> CMS, then select the desired debug mode from the menu.
-    </div>
-    <div class="site-info">
-      <!-- Placeholder -->
+
+  <div class="main-content">
+    <div class="tab-content" id="main-tabs">
+      <div class="tab-pane fade show active" id="main-tabs-debug" role="tabpanel" aria-labelledby="main-tabs-debug">
+        <fieldset class="form-group">
+          <legend class="form-text">Debug Mode</legend>
+          <div id="debug-modes" class="custom-controls-stacked">
+
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="tab-pane fade" id="main-tabs-links" role="tabpanel" aria-labelledby="main-tabs-links">
+        <fieldset class="form-group">
+          <legend class="form-text">Help & Useful links</legend>
+
+          <p class="text-muted">e107 related links</p>
+
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="https://e107.org/developer-manual" target="_blank">
+              Developer manual
+              <span class="badge badge-pill pull-right">
+                <i class="fa fa-book" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107" target="_blank">
+              e107's repository
+              <span class="badge badge-pill pull-right">
+                <i class="fa fa-github" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="list-group-item list-group-item-action" href="https://gitter.im/e107inc/e107" target="_blank">
+              Chat on Gitter
+              <span class="badge badge-pill pull-right">
+                <i class="fa fa-commenting" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+
+          <p class="text-muted">e107 Dev related links</p>
+
+          <div class="list-group">
+            <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107-dev/issues" target="_blank">
+              Bug reporting
+              <span class="badge badge-pill pull-right">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107" target="_blank">
+              Repository
+              <span class="badge badge-pill pull-right">
+                <i class="fa fa-github" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+
+        </fieldset>
+      </div>
+
+      <div class="tab-pane fade" id="main-tabs-settings" role="tabpanel" aria-labelledby="main-tabs-settings">
+        <fieldset class="form-group">
+          <legend class="form-text">Settings</legend>
+          <div class="empty-middle">Under development...</div>
+        </fieldset>
+      </div>
     </div>
   </div>
+
+  <div class="navigation">
+    <ul class="nav nav-pills no-gutters" id="main-tabs-nav" role="tablist">
+      <li class="nav-item col-4">
+        <a class="nav-link active" id="main-tabs-debug-tab" data-toggle="pill" href="#main-tabs-debug" role="tab" aria-controls="main-tabs-debug" aria-selected="true">
+          <i class="fa fa-bug" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="nav-item col-4">
+        <a class="nav-link" id="main-tabs-links-tab" data-toggle="pill" href="#main-tabs-links" role="tab" aria-controls="main-tabs-links" aria-selected="false">
+          <i class="fa fa-life-ring" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="nav-item col-4">
+        <a class="nav-link" id="main-tabs-settings-tab" data-toggle="pill" href="#main-tabs-settings" role="tab" aria-controls="main-tabs-settings" aria-selected="false">
+          <i class="fa fa-cog" aria-hidden="true"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+
 </div>
 
 <script src="assets/js/popup.js"></script>

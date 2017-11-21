@@ -1,6 +1,6 @@
-import Config from '../config.json';
-import StorageLocal from '../storage/StorageLocal';
-import StorageSync from '../storage/StorageSync';
+import StorageConfig from '../../config/storage.json';
+import StorageLocal from './StorageLocal';
+import StorageSync from './StorageSync';
 
 /**
  * Class Storage.
@@ -18,7 +18,7 @@ export default class Storage {
    * Constructor.
    */
   constructor() {
-    switch (Config.StorageType) {
+    switch (StorageConfig.default) {
       case 'sync':
         return new StorageSync();
         break;

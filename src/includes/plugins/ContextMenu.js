@@ -1,5 +1,5 @@
 import UrlParser from '../helpers/UrlParser';
-import Config from '../config.json';
+import MenuItems from '../../config/menu.items.json';
 
 /**
  * Class ContextMenu.
@@ -37,7 +37,7 @@ export default class ContextMenu {
       "title": "e107 Dev - Debug Mode"
     });
 
-    for (let [mode, label] of Object.entries(Config.MenuItems)) {
+    for (let [mode, label] of Object.entries(MenuItems)) {
       if (label === 'separator') {
         _this.browser.contextMenus.create({
           "type": "separator",
