@@ -33,5 +33,11 @@
     "storage",
     "contextMenus",
     "<all_urls>"
-  ]
+  ],
+  "applications": {
+    "gecko": {
+      "id": "e107-dev@e107.org",
+      "strict_min_version": "57.0"
+    }
+  }
 }
