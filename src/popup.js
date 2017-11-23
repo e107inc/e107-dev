@@ -1,7 +1,9 @@
 import jQuery from 'jquery';
-import Storage from './includes/storage/Storage';
+import StorageHandler from './includes/handlers/StorageHandler';
 import Utils from './includes/helpers/Utils';
 import UrlParser from './includes/helpers/UrlParser';
+import DebugModeHandler from './includes/handlers/DebugModeHandler';
+import SettingsFormHandler from './includes/handlers/SettingsFormHandler';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,13 +22,17 @@ export default class Popup {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new Storage();
+    this.storage = new StorageHandler();
+    this.debug = new DebugModeHandler();
+    this.form = new SettingsFormHandler();
   }
 
   /**
    * Init.
    */
   init() {
+    this.form.init();
+
     if (typeof this.browser === "undefined" || typeof this.browser.tabs === "undefined") {
       this.buildDebugMenu('---');
       return;
@@ -50,7 +56,7 @@ export default class Popup {
         if (isE107) {
           let domain = UrlParser.getDomainFromUrl(url);
 
-          _this.storage.get(domain, false, mode => {
+          _this.debug.getDebugMode(domain, false, mode => {
             _this.buildDebugMenu(mode);
           });
         }
@@ -61,6 +67,13 @@ export default class Popup {
     });
   }
 
+  /**
+   * Builds debug menu in popup.
+   *
+   * @param {String} debugMode
+   *   Saved debug mode for the current website, or false. If the current
+   *   website is not using e107, this param is '---'.
+   */
   buildDebugMenu(debugMode) {
     let _this = this;
 

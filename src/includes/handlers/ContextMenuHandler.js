@@ -2,9 +2,9 @@ import UrlParser from '../helpers/UrlParser';
 import MenuItems from '../../config/menu.items.json';
 
 /**
- * Class ContextMenu.
+ * Class ContextMenuHandler.
  */
-export default class ContextMenu {
+export default class ContextMenuHandler {
 
   /**
    * Constructor.

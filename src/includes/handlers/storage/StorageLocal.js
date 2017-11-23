@@ -1,4 +1,4 @@
-/**
+/**Storage
  * Class StorageLocal.
  *
  * Wrapper class for storage.local API.

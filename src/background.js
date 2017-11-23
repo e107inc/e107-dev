@@ -1,5 +1,5 @@
-import ContextMenu from './includes/plugins/ContextMenu';
-import DebugModeHandler from './includes/plugins/DebugModeHandler';
+import ContextMenuHandler from './includes/handlers/ContextMenuHandler';
+import DebugModeHandler from './includes/handlers/DebugModeHandler';
 
 /**
  * Class Background.
@@ -25,7 +25,7 @@ export default class Background {
    */
   initPlugins() {
     // Build contextual menu.
-    this.contextMenu = new ContextMenu();
+    this.contextMenu = new ContextMenuHandler();
     this.contextMenu.init();
 
     // Apply stored debug mode on the current URL, if there is.

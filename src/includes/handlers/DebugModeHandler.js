@@ -1,4 +1,4 @@
-import Storage from '../storage/Storage';
+import StorageHandler from './StorageHandler';
 import UrlParser from '../helpers/UrlParser';
 import Utils from '../helpers/Utils';
 
@@ -12,7 +12,7 @@ export default class DebugModeHandler {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new Storage();
+    this.storage = new StorageHandler();
   }
 
   /**
@@ -50,16 +50,16 @@ export default class DebugModeHandler {
           let domain = UrlParser.getDomainFromUrl(url);
           let debugMode = UrlParser.getDebugParam(url, false);
 
-          _this.storage.get(domain, false, mode => {
+          _this.getDebugMode(domain, false, mode => {
             // If URL contains debug mode.
             if (debugMode !== false && debugMode !== '') {
               // If debug mode is off: remove it from local storage.
               if (debugMode === '[debug=-]') {
-                _this.storage.remove(domain);
+                _this.removeDebugMode(domain);
               }
               // Update debug mode in local storage.
               else {
-                _this.storage.set(domain, debugMode);
+                _this.setDebugMode(domain, debugMode);
               }
             }
             // If URL does not contain debug mode.
@@ -97,6 +97,65 @@ export default class DebugModeHandler {
     this.browser.tabs.update(tab.id, {
       "url": url
     });
+  }
+
+  getDebugMode(domain, def, callback) {
+    let _this = this;
+
+    _this.storage.get('debug-modes', false, result => {
+      let debugModes = {};
+
+      if (result !== false) {
+        for (let [dom, mod] of Object.entries(JSON.parse(result))) {
+          debugModes[dom] = mod;
+        }
+      }
+
+      if (typeof callback === "function") {
+        callback(debugModes[domain] || def);
+      }
+    });
+  }
+
+  setDebugMode(domain, mode) {
+    let _this = this;
+
+    _this.storage.get('debug-modes', false, result => {
+      let debugModes = {};
+
+      if (result !== false) {
+        for (let [dom, mod] of Object.entries(JSON.parse(result))) {
+          debugModes[dom] = mod;
+        }
+      }
+
+      debugModes[domain] = mode;
+
+      _this.storage.set('debug-modes', JSON.stringify(debugModes));
+    });
+  }
+
+  removeDebugMode(domain) {
+    let _this = this;
+
+    _this.storage.get('debug-modes', false, result => {
+      let debugModes = {};
+
+      if (result !== false) {
+        for (let [dom, mod] of Object.entries(JSON.parse(result))) {
+          if (dom !== domain) {
+            debugModes[dom] = mod;
+          }
+        }
+      }
+
+      _this.storage.set('debug-modes', JSON.stringify(debugModes));
+    });
+  }
+
+  removeDebugModeAll() {
+    let _this = this;
+    _this.storage.set('debug-modes', JSON.stringify({}));
   }
 
 }

@@ -1,9 +1,9 @@
 import StorageConfig from '../../config/storage.json';
-import StorageLocal from './StorageLocal';
-import StorageSync from './StorageSync';
+import StorageLocal from './storage/StorageLocal';
+import StorageSync from './storage/StorageSync';
 
 /**
- * Class Storage.
+ * Class StorageHandler.
  *
  * To store data for this extension, we can use either "sync" or "local".
  * When using "sync", the stored data will automatically be synced to any
@@ -12,13 +12,15 @@ import StorageSync from './StorageSync';
  *
  * @see config.json
  */
-export default class Storage {
+export default class StorageHandler {
 
   /**
    * Constructor.
    */
   constructor() {
-    switch (StorageConfig.default) {
+    let storageType = StorageConfig.default;
+
+    switch (storageType) {
       case 'sync':
         return new StorageSync();
         break;
