@@ -1,5 +1,5 @@
 import UrlParser from '../helpers/UrlParser';
-import MenuItems from '../../config/menu.items.json';
+import ConfigHandler from './ConfigHandler';
 
 /**
  * Class ContextMenuHandler.
@@ -11,23 +11,30 @@ export default class ContextMenuHandler {
    */
   constructor() {
     this.browser = chrome || browser;
+    this.config = new ConfigHandler();
   }
 
   /**
    * Initializes contextual menu.
    */
   init() {
-    if (typeof this.browser === "undefined") {
+    let _this = this;
+
+    if (typeof _this.browser === "undefined") {
       return;
     }
 
-    this.buildMenu();
+    _this.config.getAll(config => {
+      if (config['contextMenu'] === true) {
+        _this.buildMenu(config['menuItems']);
+      }
+    });
   };
 
   /**
    * Builds contextual menu.
    */
-  buildMenu() {
+  buildMenu(MenuItems) {
     // Binding this.
     let _this = this;
 

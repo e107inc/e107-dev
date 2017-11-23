@@ -1,4 +1,4 @@
-import StorageConfig from '../../config/storage.json';
+// import StorageConfig from '../../config/storage.json';
 import StorageLocal from './storage/StorageLocal';
 import StorageSync from './storage/StorageSync';
 
@@ -17,8 +17,8 @@ export default class StorageHandler {
   /**
    * Constructor.
    */
-  constructor() {
-    let storageType = StorageConfig.default;
+  constructor(storageType) {
+    // let storageType = StorageConfig.default;
 
     switch (storageType) {
       case 'sync':

@@ -1,16 +1,14 @@
 import jQuery from 'jquery';
-import StorageHandler from './includes/handlers/StorageHandler';
 import Utils from './includes/helpers/Utils';
 import UrlParser from './includes/helpers/UrlParser';
+import ConfigHandler from './includes/handlers/ConfigHandler';
+import StorageHandler from './includes/handlers/StorageHandler';
 import DebugModeHandler from './includes/handlers/DebugModeHandler';
-import SettingsFormHandler from './includes/handlers/SettingsFormHandler';
 
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import './assets/css/popup.css';
-
-import MenuItems from './config/menu.items.json';
 
 /**
  * Class Popup.
@@ -22,23 +20,22 @@ export default class Popup {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new StorageHandler();
+    this.storage = new StorageHandler('local');
     this.debug = new DebugModeHandler();
-    this.form = new SettingsFormHandler();
+    this.config = new ConfigHandler();
   }
 
   /**
    * Init.
    */
   init() {
-    this.form.init();
-
     if (typeof this.browser === "undefined" || typeof this.browser.tabs === "undefined") {
       this.buildDebugMenu('---');
       return;
     }
 
     this.initDebugMenu();
+    this.initSettingsForm();
   }
 
   /**
@@ -87,45 +84,78 @@ export default class Popup {
       return;
     }
 
-    let index = 0;
-    for (let [mode, label] of Object.entries(MenuItems)) {
-      if (label === 'separator') {
-        let $sep = jQuery('<hr/>');
-        $sep.appendTo($list);
-        continue;
-      }
+    _this.config.get('menuItems', {}, MenuItems => {
+      let index = 0;
 
-      index++;
+      for (let [mode, label] of Object.entries(MenuItems)) {
+        if (label === 'separator') {
+          let $sep = jQuery('<hr/>');
+          $sep.appendTo($list);
+          continue;
+        }
 
-      let $label = jQuery('<label class="custom-control custom-radio"></label>');
-      let $input = jQuery('<input type="radio" name="debug-mode" class="custom-control-input">');
-      let $indic = jQuery('<span class="custom-control-indicator"></span>');
-      let $descr = jQuery('<span class="custom-control-description"></span>');
+        index++;
 
-      $input.attr('id', 'debug-mode-' + index);
-      $input.attr('data-mode', mode);
+        let $label = jQuery('<label class="custom-control custom-radio"></label>');
+        let $input = jQuery('<input type="radio" name="debug-mode" class="custom-control-input">');
+        let $indic = jQuery('<span class="custom-control-indicator"></span>');
+        let $descr = jQuery('<span class="custom-control-description"></span>');
 
-      if (debugMode && debugMode === mode) {
-        $input.attr('checked', true);
-      }
+        $input.attr('id', 'debug-mode-' + index);
+        $input.attr('data-mode', mode);
 
-      $input.on('click', event => {
-        _this.browser.tabs.query({active: true, currentWindow: true}, tabs => {
-          let url = UrlParser.setDebugParam(tabs[0].url, mode);
+        if (debugMode && debugMode === mode) {
+          $input.attr('checked', true);
+        }
 
-          _this.browser.tabs.update(tabs[0].id, {
-            "url": url
+        $input.on('click', event => {
+          _this.browser.tabs.query({active: true, currentWindow: true}, tabs => {
+            let url = UrlParser.setDebugParam(tabs[0].url, mode);
+
+            _this.browser.tabs.update(tabs[0].id, {
+              "url": url
+            });
           });
         });
-      });
 
-      $descr.text(label);
+        $descr.text(label);
 
-      $input.appendTo($label);
-      $indic.appendTo($label);
-      $descr.appendTo($label);
-      $label.appendTo($list);
-    }
+        $input.appendTo($label);
+        $indic.appendTo($label);
+        $descr.appendTo($label);
+        $label.appendTo($list);
+      }
+    });
+  }
+
+  initSettingsForm() {
+    let _this = this;
+
+    let $contextMenu = jQuery('#contextMenu');
+    let $autoAdjust = jQuery('#autoAdjust');
+
+    // Set default values on form elements.
+    _this.config.getAll(config => {
+      if (config['contextMenu'] === true) {
+        $contextMenu.prop('checked', true);
+      }
+
+      if (config['autoAdjust'] === true) {
+        $autoAdjust.prop('checked', true);
+      }
+    });
+
+    $contextMenu.on('change', () => {
+      let state = $contextMenu.is(':checked');
+      console.log(state);
+      _this.config.set('contextMenu', state);
+    });
+
+    $autoAdjust.on('change', () => {
+      let state = $autoAdjust.is(':checked');
+      console.log(state);
+      _this.config.set('autoAdjust', state);
+    });
   }
 
 }

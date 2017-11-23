@@ -1,3 +1,4 @@
+import ConfigHandler from './ConfigHandler';
 import StorageHandler from './StorageHandler';
 import UrlParser from '../helpers/UrlParser';
 import Utils from '../helpers/Utils';
@@ -12,7 +13,8 @@ export default class DebugModeHandler {
    */
   constructor() {
     this.browser = chrome || browser;
-    this.storage = new StorageHandler();
+    this.config = new ConfigHandler();
+    this.storage = new StorageHandler('local');
   }
 
   /**
@@ -68,7 +70,11 @@ export default class DebugModeHandler {
               if (mode !== false && mode !== '') {
                 // Redirect only if there is no debug cookie set.
                 if (!hasDebugCookie) {
-                  _this.rewriteUrl(tab, mode);
+                  _this.config.get('autoAdjust', false, state => {
+                    if (state === true) {
+                      _this.rewriteUrl(tab, mode);
+                    }
+                  });
                 }
               }
               // URL does not contain debug mode, and no stored value.
@@ -84,7 +90,6 @@ export default class DebugModeHandler {
 
   /**
    * Rewrites the URL according to the selected debug mode, then redirects...
-   * if necessary.
    *
    * @param {Object} tab
    *   The details of the tab where the click took place.
