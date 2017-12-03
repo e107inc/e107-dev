@@ -89,14 +89,14 @@ export default class Popup {
 
       for (let [mode, label] of Object.entries(MenuItems)) {
         if (label === 'separator') {
-          let $sep = jQuery('<hr/>');
-          $sep.appendTo($list);
+          // let $sep = jQuery('<hr/>');
+          // $sep.appendTo($list);
           continue;
         }
 
         index++;
 
-        let $label = jQuery('<label class="custom-control custom-radio"></label>');
+        let $label = jQuery('<label class="list-group-item list-group-item-action flex-column align-items-start custom-control custom-radio"></label>');
         let $input = jQuery('<input type="radio" name="debug-mode" class="custom-control-input">');
         let $indic = jQuery('<span class="custom-control-indicator"></span>');
         let $descr = jQuery('<span class="custom-control-description"></span>');
