@@ -36,7 +36,7 @@
   ],
   "applications": {
     "gecko": {
-      "id": "e107-dev@e107.org",
+      "id": "{ce54f00e-29ba-444c-ab72-f845d4c57612}",
       "strict_min_version": "48.0"
     }
   }
