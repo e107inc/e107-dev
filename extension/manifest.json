@@ -32,6 +32,7 @@
     "cookies",
     "storage",
     "contextMenus",
+    "browsingData",
     "<all_urls>"
   ],
   "applications": {
