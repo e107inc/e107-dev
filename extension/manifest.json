@@ -1,6 +1,6 @@
 {
   "name": "e107 Dev",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "manifest_version": 2,
   "browser_action": {
     "default_icon": {
@@ -37,7 +37,7 @@
   "applications": {
     "gecko": {
       "id": "{ce54f00e-29ba-444c-ab72-f845d4c57612}",
-      "strict_min_version": "48.0"
+      "strict_min_version": "53.0"
     }
   }
 }
