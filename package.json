@@ -1,6 +1,6 @@
 {
   "name": "e107-dev",
-  "version": "2.1.0",
+  "version": "2.0.1",
   "description": "Browser (Firefox and Chrome) extension containing developer tools for e107 developers...",
   "private": true,
   "scripts": {
