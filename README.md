@@ -3,6 +3,10 @@ e107 Dev
 
 Browser (Firefox and Chrome) extension containing developer tools for e107 developers...
 
+### Instructions
+
+The final, production extension files are generated with webpack to the 'extension' folder.
+
 ### Commands for development
 
 Install dependencies:
