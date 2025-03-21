@@ -11,11 +11,16 @@ module.exports = {
     path: path.resolve(__dirname, 'extension'),
     filename: '[name].js'
   },
+  resolve: {
+    alias: {
+      'jquery-slim': path.resolve(__dirname, 'node_modules/jquery/dist/jquery.slim.min.js')
+    }
+  },
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery',
+      $: 'jquery-slim',
+      jQuery: 'jquery-slim',
+      'window.jQuery': 'jquery-slim',
       Popper: ['@popperjs/core', 'default']
     })
   ],
@@ -47,13 +52,10 @@ module.exports = {
         use: 'null-loader'
       },
       {
-        test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10000,
-            name: 'assets/fonts/[name].[ext]'
-          }
+        test: /\.svg$/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/icons/[name].[ext]'
         }
       }
     ]

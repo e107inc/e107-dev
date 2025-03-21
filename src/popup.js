@@ -1,13 +1,12 @@
-import jQuery from 'jquery';
+import jQuery from 'jquery-slim';
 import Utils from './includes/helpers/Utils';
 import UrlParser from './includes/helpers/UrlParser';
 import ConfigHandler from './includes/handlers/ConfigHandler';
 import StorageHandler from './includes/handlers/StorageHandler';
 import DebugModeHandler from './includes/handlers/DebugModeHandler';
 
-import 'bootstrap';
+import { Tab } from 'bootstrap'; // Only tabs
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'font-awesome/css/font-awesome.css';
 import './assets/css/popup.css';
 
 export default class Popup {
