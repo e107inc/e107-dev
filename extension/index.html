@@ -9,7 +9,7 @@
 <div class="main-container">
   <div class="main-content">
     <div class="tab-content" id="main-tabs">
-      <div class="tab-pane fade show active" id="main-tabs-debug" role="tabpanel" aria-labelledby="main-tabs-debug">
+      <div class="tab-pane fade show active" id="main-tabs-debug" role="tabpanel" aria-labelledby="main-tabs-debug-tab">
         <fieldset class="form-group">
           <legend class="form-text">Debug Mode</legend>
 
@@ -19,7 +19,7 @@
         </fieldset>
       </div>
 
-      <div class="tab-pane fade links-container" id="main-tabs-links" role="tabpanel" aria-labelledby="main-tabs-links">
+      <div class="tab-pane fade" id="main-tabs-links" role="tabpanel" aria-labelledby="main-tabs-links-tab">
         <fieldset class="form-group">
           <legend class="form-text">Help & Useful links</legend>
 
@@ -30,26 +30,26 @@
           <div class="list-group">
             <a class="list-group-item list-group-item-action" href="https://e107.org/developer-manual" target="_blank">
               Developer manual
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-book" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/book.svg" class="fa fa-book" alt="Book" aria-hidden="true" />
               </span>
             </a>
             <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107/issues" target="_blank">
               Bug reporting
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/exclamation-circle.svg" class="fa fa-exclamation-circle" alt="Exclamation Circle" aria-hidden="true" />
               </span>
             </a>
             <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107" target="_blank">
               Repository
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-github" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/github.svg" class="fa fa-github" alt="GitHub" aria-hidden="true" />
               </span>
             </a>
             <a class="list-group-item list-group-item-action" href="https://gitter.im/e107inc/e107" target="_blank">
               Chat on Gitter
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-commenting" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/comment.svg" class="fa fa-commenting" alt="Comment" aria-hidden="true" />
               </span>
             </a>
           </div>
@@ -61,21 +61,21 @@
           <div class="list-group">
             <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107-dev/issues" target="_blank">
               Bug reporting
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/exclamation-circle.svg" class="fa fa-exclamation-circle" alt="Exclamation Circle" aria-hidden="true" />
               </span>
             </a>
             <a class="list-group-item list-group-item-action" href="https://github.com/e107inc/e107" target="_blank">
               Repository
-              <span class="badge badge-pill pull-right">
-                <i class="fa fa-github" aria-hidden="true"></i>
+              <span class="badge badge-pill float-end">
+                <img src="assets/icons/github.svg" class="fa fa-github" alt="GitHub" aria-hidden="true" />
               </span>
             </a>
           </div>
         </fieldset>
       </div>
 
-      <div class="tab-pane fade settings-container" id="main-tabs-settings" role="tabpanel" aria-labelledby="main-tabs-settings">
+      <div class="tab-pane fade" id="main-tabs-settings" role="tabpanel" aria-labelledby="main-tabs-settings-tab">
         <fieldset class="form-group">
           <legend class="form-text">Settings</legend>
 
@@ -83,7 +83,7 @@
             <label class="list-group-item list-group-item-action flex-column align-items-start">
               <span class="d-flex w-100 justify-content-between">
                 <span class="setting-label">Use context menu</span>
-                <span class="switch-container pull-right">
+                <span class="switch-container float-end">
                   <input id="contextMenu" class="toggle-input toggle-input-round-flat" type="checkbox"/>
                   <span class="toggle-switch"></span>
                 </span>
@@ -95,7 +95,7 @@
             <label class="list-group-item list-group-item-action flex-column align-items-start">
               <span class="d-flex w-100 justify-content-between">
                 <span class="setting-label">Auto adjustment</span>
-                <span class="switch-container pull-right">
+                <span class="switch-container float-end">
                   <input id="autoAdjust" class="toggle-input toggle-input-round-flat" type="checkbox"/>
                   <span class="toggle-switch"></span>
                 </span>
@@ -111,20 +111,20 @@
   </div>
 
   <div class="navigation">
-    <ul class="nav nav-pills no-gutters" id="main-tabs-nav" role="tablist">
+    <ul class="nav nav-pills" id="main-tabs-nav" role="tablist">
       <li class="nav-item col-4">
-        <a class="nav-link active" id="main-tabs-debug-tab" data-toggle="pill" href="#main-tabs-debug" role="tab" aria-controls="main-tabs-debug" aria-selected="true">
-          <i class="fa fa-bug" aria-hidden="true"></i>
+        <a class="nav-link active" id="main-tabs-debug-tab" data-bs-toggle="tab" href="#main-tabs-debug" role="tab" aria-controls="main-tabs-debug" aria-selected="true">
+          <img src="assets/icons/bug.svg" class="fa fa-bug" alt="Bug" aria-hidden="true" />
         </a>
       </li>
       <li class="nav-item col-4">
-        <a class="nav-link" id="main-tabs-links-tab" data-toggle="pill" href="#main-tabs-links" role="tab" aria-controls="main-tabs-links" aria-selected="false">
-          <i class="fa fa-life-ring" aria-hidden="true"></i>
+        <a class="nav-link" id="main-tabs-links-tab" data-bs-toggle="tab" href="#main-tabs-links" role="tab" aria-controls="main-tabs-links" aria-selected="false">
+          <img src="assets/icons/life-ring.svg" class="fa fa-life-ring" alt="Life Ring" aria-hidden="true" />
         </a>
       </li>
       <li class="nav-item col-4">
-        <a class="nav-link" id="main-tabs-settings-tab" data-toggle="pill" href="#main-tabs-settings" role="tab" aria-controls="main-tabs-settings" aria-selected="false">
-          <i class="fa fa-cog" aria-hidden="true"></i>
+        <a class="nav-link" id="main-tabs-settings-tab" data-bs-toggle="tab" href="#main-tabs-settings" role="tab" aria-controls="main-tabs-settings" aria-selected="false">
+          <img src="assets/icons/cog.svg" class="fa fa-cog" alt="Cog" aria-hidden="true" />
         </a>
       </li>
     </ul>

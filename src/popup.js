@@ -10,14 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import './assets/css/popup.css';
 
-/**
- * Class Popup.
- */
 export default class Popup {
-
-  /**
-   * Constructor.
-   */
   constructor() {
     this.browser = chrome || browser;
     this.storage = new StorageHandler('local');
@@ -25,9 +18,6 @@ export default class Popup {
     this.config = new ConfigHandler();
   }
 
-  /**
-   * Init.
-   */
   init() {
     if (typeof this.browser === "undefined" || typeof this.browser.tabs === "undefined") {
       this.buildDebugMenu('---');
@@ -38,9 +28,6 @@ export default class Popup {
     this.initSettingsForm();
   }
 
-  /**
-   * Init Debug mode menu.
-   */
   initDebugMenu() {
     let _this = this;
 
@@ -64,18 +51,11 @@ export default class Popup {
     });
   }
 
-  /**
-   * Builds debug menu in popup.
-   *
-   * @param {String} debugMode
-   *   Saved debug mode for the current website, or false. If the current
-   *   website is not using e107, this param is '---'.
-   */
   buildDebugMenu(debugMode) {
     let _this = this;
 
     let $list = jQuery('#debug-modes');
-    $list.html('');
+    $list.empty(); // Changed from .html('')
 
     if (debugMode === '---') {
       let $markup = jQuery('<div class="empty-middle"></div>');
@@ -89,8 +69,6 @@ export default class Popup {
 
       for (let [mode, label] of Object.entries(MenuItems)) {
         if (label === 'separator') {
-          // let $sep = jQuery('<hr/>');
-          // $sep.appendTo($list);
           continue;
         }
 
@@ -134,7 +112,6 @@ export default class Popup {
     let $contextMenu = jQuery('#contextMenu');
     let $autoAdjust = jQuery('#autoAdjust');
 
-    // Set default values on form elements.
     _this.config.getAll(config => {
       if (config['contextMenu'] === true) {
         $contextMenu.prop('checked', true);
@@ -157,7 +134,6 @@ export default class Popup {
       _this.config.set('autoAdjust', state);
     });
   }
-
 }
 
 const popup = new Popup();

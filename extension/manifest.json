@@ -15,17 +15,11 @@
     "128": "assets/images/icon128.png"
   },
   "content_scripts": [{
-    "matches": [
-      "<all_urls>"
-    ],
-    "js": [
-      "assets/js/content.js"
-    ]
+    "matches": ["<all_urls>"],
+    "js": ["assets/js/content.js"]
   }],
   "background": {
-    "scripts": [
-      "assets/js/background.js"
-    ]
+    "scripts": ["assets/js/background.js"]
   },
   "permissions": [
     "tabs",
@@ -35,11 +29,10 @@
     "browsingData",
     "<all_urls>"
   ],
-  "applications": {
+  "browser_specific_settings": {
     "gecko": {
       "id": "{ce54f00e-29ba-444c-ab72-f845d4c57612}",
-      "strict_min_version": "53.0",
-      "strict_max_version": "140.*"
+      "strict_min_version": "79.0"
     }
   }
 }
