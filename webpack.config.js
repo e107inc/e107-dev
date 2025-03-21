@@ -1,5 +1,5 @@
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -16,44 +16,50 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery',
-      Popper: ['popper.js', 'default'],
+      Popper: ['@popperjs/core', 'default']
     })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loader: 'babel-loader',
-        query: {
-          plugins: [
-            'transform-runtime',
-            'transform-class-properties'
-          ],
-          presets: ['es2015', 'stage-0']
-        },
-        exclude: [
-          path.resolve(__dirname, "node_modules"),
-        ]
+        use: 'babel-loader',
+        exclude: [path.resolve(__dirname, 'node_modules')]
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader?sourceMap'
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        type: 'json'
       },
       {
         test: /\.md$/,
-        loader: 'null'
+        use: 'null-loader'
       },
       {
-        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&name=assets/fonts/[name].[ext]',
+        test: /\.(woff2?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'assets/fonts/[name].[ext]'
+          }
+        }
       }
     ]
   },
   stats: {
     colors: true
-  }
+  },
+  mode: 'production'
 };

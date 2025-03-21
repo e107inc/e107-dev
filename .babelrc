@@ -1,10 +1,10 @@
 {
   "presets": [
-    "es2015",
-    "stage-0"
+    "@babel/preset-env"
   ],
   "plugins": [
-    "babel-plugin-add-module-exports",
-    "babel-plugin-version-inline"
+    "add-module-exports",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-class-properties"
   ]
 }
